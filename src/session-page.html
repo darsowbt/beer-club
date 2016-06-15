@@ -1,0 +1,20 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<dom-module id="session-page">
+	<template>
+		<h1>[[key]]</h1>
+	</template>
+	<script>
+		Polymer({
+
+			is: 'session-page',
+
+			properties: {
+				key: {
+					type: String,
+					value: ''
+				}
+			}
+		});
+	</script>
+</dom-module>

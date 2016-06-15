@@ -1,0 +1,10 @@
+{
+  "entrypoint": "index.html",
+  "shell": "src/beer-club-app.html",
+  "fragments": [
+    "src/sessions-page.html",
+    "src/beers-page.html",
+    "src/contact-page.html",
+    "src/admin-page.html"
+  ]
+}

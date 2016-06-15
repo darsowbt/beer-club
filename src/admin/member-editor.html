@@ -1,0 +1,139 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/iron-form/iron-form.html">
+<link rel="import" href="../bower_components/iron-a11y-keys/iron-a11y-keys.html">
+<link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-input/paper-textarea.html">
+
+<dom-module id="member-editor">
+    <template>
+        <style>
+            #dialog {
+                display: block;
+                padding: 16px 32px 64px 32px;
+                border: 1px solid #ccc;
+                position: absolute;
+                top: 0;
+                margin: 0;
+                width: 80vw;
+                background: var(--primary-background-color);
+                overflow-y: scroll;
+            }
+
+            .main-layout {
+                display: flex;
+                flex-direction: row;
+            }
+
+            .flex {
+                flex: 1;
+            }
+
+            .buttons-layout {
+                display: flex;
+                flex-direction: row;
+                margin-top: 16px;
+            }
+        </style>
+        <paper-dialog id="dialog" modal>
+            <div class="main-layout">
+                <h2>{{heading}}</h2>
+                <span class="flex"></span>
+                <paper-icon-button icon="close" on-tap="close"></paper-icon-button>
+            </div>
+
+            <div class="wrapper">
+                <div class="form">
+                    <form is="iron-form" id="form">
+                        <iron-a11y-keys keys="enter" on-keys-pressed="_save"></iron-a11y-keys>
+                        <paper-input name="firstName" id="firstName" value="{{member.firstName}}" label="First Name" 
+                        auto-validate required error-message="First Name required"></paper-input>
+                        <paper-input name="lastName" id="lastName" value="{{member.lastName}}"" label="Last Name" 
+                        auto-validate required error-message="Last Name required"></paper-input>
+                        <paper-input name="email" id="email" value="{{member.email}}" label="Email" 
+                        auto-validate required error-message="Email required"></paper-input>
+                        <paper-textarea id="address" name="address" value="{{member.address}}" label="Address" value=""></paper-textarea>
+                    </form>
+                    <span id="error">{{errorText}}</span>
+                </div>
+            </div>
+
+            <div class="buttons-layout">
+                <paper-button raised on-tap="_save">Save</paper-button>
+                <paper-button on-tap="close">Cancel</paper-button>
+                <paper-button on-tap="_delete" id="delete">Delete</paper-button>
+            </div>
+        </paper-dialog>
+
+    </template>
+    <script>
+        (function () {
+            'use strict';
+
+            Polymer({
+                is: 'member-editor',
+                properties: {
+                    heading: String,
+                    member: {
+                        type: Object,
+                        notify: true,
+                        value: {}
+                    },
+                    errorText: String
+                },
+                _reset: function () {
+                    if (this.member.key) {
+                        this.heading = 'Edit Member';
+                    } else {
+                        this.heading = 'Add Member';
+                        this.$.firstName.value = '';
+                        this.$.lastName.value = '';
+                        this.$.email.value = '';
+                        this.$.address.value = '';
+                    }
+                }, _save: function () {
+                    var _this = this;
+                    this.$.error.innerText = '';
+                    var form = this.$.form;
+                    if (form.validate()) {
+                        // var data = form.serialize();
+//                        data.receipt = _this.receiptFile;
+//                        this.service.saveExpense(this.expense.id, data)
+//                                .then(function () {
+//                                    _this.fire('expenses-updated', {
+//                                        reason: 'saved'
+//                                    });
+//                                })
+//                                .catch(function (e) {
+//                                    console.log(e);
+//                                    _this.errorText = 'Save failed.';
+//                                });
+//                        app.saveSession(data);
+                        // _this.fire('member-updated', {
+                        //     data: data
+                        // });
+                        // app.updateMember({data: data});
+                        //addMember(_this, data);
+                        this.fire('member-saved',this.member);
+                        this.close();
+                    } else {
+                        this.errorText = 'Please fill all required fields';
+                    }
+                },
+                open: function () {
+                    this._reset();
+                    this.$.dialog.open();
+                },
+                close: function () {
+                    var _this = this;
+                    this.async(function () {
+                        _this.$.dialog.close();
+                    }, 10);
+                }
+            });
+        })();
+    </script>
+</dom-module>
