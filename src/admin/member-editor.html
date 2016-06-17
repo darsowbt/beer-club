@@ -10,34 +10,6 @@
 
 <dom-module id="member-editor">
     <template>
-        <style>
-            #dialog {
-                display: block;
-                padding: 16px 32px 64px 32px;
-                border: 1px solid #ccc;
-                position: absolute;
-                top: 0;
-                margin: 0;
-                width: 80vw;
-                background: var(--primary-background-color);
-                overflow-y: scroll;
-            }
-
-            .main-layout {
-                display: flex;
-                flex-direction: row;
-            }
-
-            .flex {
-                flex: 1;
-            }
-
-            .buttons-layout {
-                display: flex;
-                flex-direction: row;
-                margin-top: 16px;
-            }
-        </style>
         <paper-dialog id="dialog" modal>
             <div class="main-layout">
                 <h2>{{heading}}</h2>
