@@ -15,6 +15,10 @@
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
 
+<link rel="import" href="../../bower_components/polymerfire/firebase-auth.html">
+
+<link rel="import" href="bc-login.html">
+
 <dom-module id="beer-club-app">
   <template>
     <style>
@@ -22,6 +26,7 @@
         display: block;
       }
     </style>
+    <firebase-auth id="auth" user="{{user}}" provider="google" signedIn="{{signedIn}}"></firebase-auth>
     <app-drawer-layout force-narrow>
       <app-drawer id="drawer">
         <app-toolbar>Menu</app-toolbar>
@@ -42,7 +47,7 @@
           <app-toolbar>
             <paper-icon-button class="menu-button" icon="menu" drawer-toggle hidden$="{{wideLayout}}"></paper-icon-button>
             <div title>Beer Club</div>
-            <paper-icon-button icon="search"></paper-icon-button>
+            <bc-login user="[[user]]" signedIn="[[signedIn]]"></bc-login> 
           </app-toolbar>
           <app-toolbar class="tabs-bar" hidden$="{{!wideLayout}}">
             <paper-tabs selected="{{page}}" attr-for-selected="name" bottom-item>
