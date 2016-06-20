@@ -1,6 +1,0 @@
-{
-  "entrypoint": "index.html",
-  "shell": "src/beer-club-app.html",
-  "fragments": [
-  ]
-}
