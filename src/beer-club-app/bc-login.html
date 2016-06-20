@@ -1,0 +1,38 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+
+<link rel="import" href="../../bower_components/paper-menu-button/paper-menu-button.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/paper-menu/paper-menu.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+
+<dom-module id="bc-login">
+	<template>
+		<paper-menu-button>
+			<paper-icon-button icon="account-circle" class="dropdown-trigger"></paper-icon-button>
+			<<paper-menu class="dropdown-content">
+				<paper-item>Item 1</paper-item>
+				<paper-item>Item 2</paper-item>
+			</paper-menu>
+		</paper-menu-button>
+	</template>
+	<script>
+		Polymer({
+
+			is: 'bc-login',
+
+			properties: {
+				user: {
+					type: Object,
+					value: {}
+				},
+				signedIn: {
+					type: Boolean,
+					value: false
+				}
+			},
+
+		});
+	</script>
+</dom-module>
