@@ -1,0 +1,87 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
+<link rel="import" href="../../bower_components/app-layout/app-drawer/app-drawer.html">
+<link rel="import" href="../../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../../bower_components/app-layout/app-header-layout/app-header-layout.html">
+
+<link rel="import" href="../../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
+
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
+
+<dom-module id="beer-club-app">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <app-drawer-layout force-narrow>
+      <app-drawer id="drawer">
+        <app-toolbar>Menu</app-toolbar>
+        <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
+          <template is="dom-repeat" items="{{menuItems}}">
+<!--           <a name="[[item.name]]" href="[[item.href]]">
+            <iron-icon icon="[[item.icon]]"></iron-icon>
+            <span>[[item.display]]</span> -->
+            <paper-item name="[[item.name]]">[[item.display]]</paper-item>
+          </template>
+        </iron-selector>
+      </app-drawer>
+
+      <!-- Main content -->
+      <app-header-layout>
+
+        <app-header class="main-header">
+          <app-toolbar>
+            <paper-icon-button class="menu-button" icon="menu" drawer-toggle hidden$="{{wideLayout}}"></paper-icon-button>
+            <div title>Beer Club</div>
+            <paper-icon-button icon="search"></paper-icon-button>
+          </app-toolbar>
+          <app-toolbar class="tabs-bar" hidden$="{{!wideLayout}}">
+            <paper-tabs selected="{{page}}" attr-for-selected="name" bottom-item>
+              <template is="dom-repeat" items="{{menuItems}}">
+                <paper-tab name="[[item.name]]">
+                  <paper-item>[[item.display]]</paper-item>
+                </paper-tab>
+              </template>
+            </paper-tabs>
+          </app-toolbar>
+        </app-header>
+        <iron-pages role="main" selected="[[page]]" attr-for-selected="name">
+          <h2 name="sessions">sessions</h2>
+          <h2 name="beers">Beers</h2>
+          <h2 name="contact">Contact</h2>
+          <h2 name="admin">Admin</h2>
+        </iron-pages>
+      </app-header-layout>
+    </app-drawer-layout>
+
+    <iron-media-query query="min-width: 600px" query-matches="{{wideLayout}}"></iron-media-query>
+
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'beer-club-app',
+
+      properties: {
+        menuItems: {
+          type: Array,
+          value: [{'name': 'sessions', 'href': '/sessions', 'display': 'Sessions', 'icon': 'home'},
+          {'name': 'beers', 'href': '/beers', 'display': 'Beers', 'icon': 'account-box'},
+          {'name': 'contact', 'href': '/contact', 'display': 'Contact', 'icon': 'account-box'},
+          {'name': 'admin', 'href': '/admin', 'display': 'Admin', 'icon': 'account-box'}]
+        }
+      },
+
+    });
+  </script>
+</dom-module>
