@@ -1,21 +1,43 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
 
 <link rel="import" href="../../bower_components/paper-menu-button/paper-menu-button.html">
-<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
-<link rel="import" href="../../bower_components/paper-menu/paper-menu.html">
 <link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
 
 <dom-module id="bc-login">
 	<template>
-		<paper-menu-button>
-			<paper-icon-button icon="account-circle" class="dropdown-trigger"></paper-icon-button>
-			<<paper-menu class="dropdown-content">
-				<paper-item>Item 1</paper-item>
+		<paper-button hidden$={{signedIn}} on-click="_showLogIn">Log In</paper-button>
+		<paper-menu-button hidden$={{!signedIn}}>
+			<paper-button class="dropdown-trigger">
+				<iron-icon icon="account-circle" "></iron-icon>
+				{{_computeEmail(signedIn, user)}}
+			</paper-button>
+			<paper-material class="dropdown-content">
 				<paper-item>Item 2</paper-item>
-			</paper-menu>
+			</paper-material>
 		</paper-menu-button>
+		<paper-dialog id="loginDialog">
+			<h2>Log In</h2>
+			<div>
+				<paper-input id="emailInput" label="email">
+					<paper-icon-button suffix icon="clear"></paper-icon-button>
+				</paper-input>
+				<paper-input id="passwordInput" label="password" type="password">
+					<paper-icon-button suffix icon="clear"></paper-icon-button>
+				</paper-input>
+				<div class="buttons">
+					<paper-button dialog-dismiss>Login</paper-button>
+					<paper-button dialog-confirm autofocus>OK</paper-button>
+				</div>
+			</div>
+		</paper-dialog>
 	</template>
 	<script>
 		Polymer({
@@ -32,6 +54,16 @@
 					value: false
 				}
 			},
+			_computeEmail: function(signedIn, user) {
+				if (signedIn) {
+					return(user.email);
+				} else {
+					return('');
+				}
+			},
+			_showLogIn: function() {
+				this.$.loginDialog.open();
+			}
 
 		});
 	</script>
