@@ -17,7 +17,7 @@
 
 <link rel="import" href="../../bower_components/polymerfire/firebase-auth.html">
 
-<link rel="import" href="bc-login.html">
+<link rel="import" href="bc-user.html">
 
 <dom-module id="beer-club-app">
   <template>
@@ -47,7 +47,7 @@
           <app-toolbar>
             <paper-icon-button class="menu-button" icon="menu" drawer-toggle hidden$="{{wideLayout}}"></paper-icon-button>
             <div title>Beer Club</div>
-            <bc-login user="[[user]]" signedIn="[[signedIn]]"></bc-login> 
+            <bc-user user="[[user]]" signedIn="[[signedIn]]"></bc-user> 
           </app-toolbar>
           <app-toolbar class="tabs-bar" hidden$="{{!wideLayout}}">
             <paper-tabs selected="{{page}}" attr-for-selected="name" bottom-item>
