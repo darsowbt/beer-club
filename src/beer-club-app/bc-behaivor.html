@@ -1,0 +1,29 @@
+<script>
+	(() => {
+		'use strict';
+
+		BeerClub.BeerClubBehaviorImpl = {
+			properties: {
+				editableNoteId: {
+					type: String,
+					notify: true
+				}
+			},
+
+			signOut() {
+				if (this.$.auth) {
+					this.$.auth.signOut();
+				}
+			},
+
+			createUser(email, password) {
+				if (this.$.auth) {
+					this.$.auth.createUserWithEmailAndPassword(email, password);
+				}
+			}
+		};
+		BeerClub.BeerClubBehavior = [
+		BeerClub.BeerClubBehaviorImpl
+		];
+	})();
+</script>
