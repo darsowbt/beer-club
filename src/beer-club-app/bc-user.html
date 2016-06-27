@@ -41,21 +41,21 @@
 		<paper-dialog id="registerDialog">
 			<h2>Register</h2>
 			<div>
-				<paper-input id="regFirstName" label="First Name">
+				<paper-input id="regFirstName" label="First Name" value="{{newFirstName}}">
 					<paper-icon-button suffix icon="clear"></paper-icon-button>
 				</paper-input>
-				<paper-input id="regLastName" label="Last Name">
+				<paper-input id="regLastName" label="Last Name" value="{{newLastName}}">
 					<paper-icon-button suffix icon="clear"></paper-icon-button>
 				</paper-input>
-				<paper-input id="regEmail" label="Email">
+				<paper-input id="regEmail" label="Email" value="{{newEmail}}">
 					<paper-icon-button suffix icon="clear"></paper-icon-button>
 				</paper-input>
-				<paper-input id="regPassword" label="Password" type="password">
+				<paper-input id="regPassword" label="Password" type="password" value="{{newPasswod}}">
 					<paper-icon-button suffix icon="clear"></paper-icon-button>
 				</paper-input>
 				<div class="buttons">
 					<paper-button dialog-dismiss>Cancel</paper-button>
-					<paper-button dialog-confirm autofocus>ok</paper-button>
+					<paper-button dialog-confirm autofocus on-tap="_createUser">ok</paper-button>
 				</div>
 			</div>
 			
@@ -88,6 +88,12 @@
 			},
 			_showRegister: function() {
 				this.$.registerDialog.open();
+			},
+			_createUser: function() {
+				this.fire('create-user', {email: this.newEmail,
+					password: this.newPasswod,
+					firstName: this.newFirstName,
+					lastName: this.newLastName });
 			}
 
 		});

@@ -26,7 +26,7 @@
         display: block;
       }
     </style>
-    <firebase-auth id="auth" user="{{user}}" provider="google" signedIn="{{signedIn}}"></firebase-auth>
+    <firebase-auth app-name="beerClub" id="auth" user="{{user}}" signedIn="{{signedIn}}"></firebase-auth>
     <app-drawer-layout force-narrow>
       <app-drawer id="drawer">
         <app-toolbar>Menu</app-toolbar>
@@ -77,6 +77,11 @@
 
       is: 'beer-club-app',
 
+      listeners: {
+        'create-user' : 'createUser',
+        'sign-in' : 'signIn'
+      },
+
       properties: {
         menuItems: {
           type: Array,
@@ -86,6 +91,13 @@
           {'name': 'admin', 'href': '/admin', 'display': 'Admin', 'icon': 'account-box'}]
         }
       },
+
+      createUser: function(e) {
+        console.log('create user');
+        console.log(e.detail.email);
+        console.log(e.detail.password);
+        this.$.auth.createUserWithEmailAndPassword(e.detail.email, e.detail.password);
+      }
 
     });
   </script>
